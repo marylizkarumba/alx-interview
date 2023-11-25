@@ -1,16 +1,23 @@
 #!/usr/bin/python3
+"""A function to determine the fewest number of coins needed
+   to meet a given amount total"""
+
 
 def makeChange(coins, total):
+    """This function will take a list of coins and use
+       that to calculate how much change the total will require
+    """
     if total <= 0:
         return 0
 
-    # Initialize an array to store the minimum number of coins needed for each total value
-    dp = [float('inf')] * (total + 1)
-    dp[0] = 0
-
-    # Iterate through each coin and update the minimum number of coins needed for each total value
-    for coin in coins:
-        for amount in range(coin, total + 1):
-            dp[amount] = min(dp[amount], dp[amount - coin] + 1)
-
-    return dp[total] if dp[total] != float('inf') else -1
+    else:
+        coin = sorted(coins)
+        coin.reverse()
+        counter = 0
+        for i in coin:
+            while(total >= i):
+                counter += 1
+                total -= i
+        if total == 0:
+            return counter
+        return -1
